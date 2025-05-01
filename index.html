@@ -4,33 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ramzi & Mgiełka – Aplikacje dla Ciebie</title>
+
   <style>
+    /* Efekt mgiełki w tle */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15), transparent 60%);
+      animation: fogMove 60s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes fogMove {
+      0% { background-position: 0% 0%, 100% 100%; }
+      100% { background-position: 100% 100%, 0% 0%; }
+    }
+
+    /* Ogólne style */
     body {
       font-family: sans-serif;
       background-color: #fef4d1;
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #ffd9a0;
       padding: 20px;
       text-align: center;
       border-bottom: 2px solid #ccc;
     }
+
     h1 {
       margin: 0;
       font-size: 28px;
     }
+
     main {
       padding: 20px;
     }
+
     .app-card {
       background-color: white;
       border-radius: 12px;
       padding: 15px;
       margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s ease-out forwards;
     }
+
+    .fade-1 { animation-delay: 0.3s; }
+    .fade-2 { animation-delay: 0.6s; }
+    .fade-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     footer {
       text-align: center;
       padding: 10px;
@@ -44,17 +84,17 @@
     <h1>Ramzi & Mgiełka – Aplikacje dla Ciebie</h1>
   </header>
   <main>
-    <div class="app-card">
+    <div class="app-card fade-1">
       <h2>Twój czas, Twoje zdrowie</h2>
       <p>Aplikacja do pracy i przerw z dźwiękami Mgiełki, wsparciem Pomodoro i wyłącznikiem komputera.</p>
       <a href="#">[Pobierz EXE]</a> | <a href="#">[Kod źródłowy]</a>
     </div>
-    <div class="app-card">
+    <div class="app-card fade-2">
       <h2>Strażnik Procesów</h2>
       <p>Monitoruj procesy, wykrywaj podejrzane programy, usuwaj logi i zarządzaj antywirusami.</p>
       <a href="#">[Pobierz EXE]</a> | <a href="#">[Kod źródłowy]</a>
     </div>
-    <div class="app-card">
+    <div class="app-card fade-3">
       <h2>Zgłoś się do chórku</h2>
       <p>Ćwicz śpiew, śpiewaj z Mgiełką, ucz się interwałów i zdobywaj poziomy chóralne.</p>
       <a href="#">[Pobierz EXE]</a> | <a href="#">[Kod źródłowy]</a>
