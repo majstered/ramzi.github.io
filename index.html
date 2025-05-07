@@ -1,26 +1,173 @@
-<div class="app-card fade-1">
-  <h2 style="margin-top: 0;">🕰️ Twój czas, Twoje zdrowie</h2>
-  <p style="font-size: 16px; line-height: 1.5;">
-    Aplikacja, która dba o Twoje zdrowie, rytm dnia i wewnętrzny spokój.  
-    Stworzona z myślą o Tobie – z czułością i lekkością Mgiełki.
-  </p>
-  
-  <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
-    <li>⏳ <strong>Tryb Pomodoro</strong> – 25 min pracy, 5 min przerwy</li>
-    <li>🔔 <strong>Delikatne dźwięki</strong> – Szepty Mgiełki na start i koniec</li>
-    <li>🌐 <strong>Wielojęzyczny interfejs</strong> – PL, EN, DE, FR</li>
-    <li>💤 <strong>Wyłącznik komputera</strong> – wpisz godzinę, komputer się wyłączy</li>
-    <li>🧠 <strong>Spokojny interfejs</strong> – piaskowe tło, brak rozpraszaczy</li>
-  </ul>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ramzi & Mgiełka – Aplikacje dla Ciebie</title>
+  <style>
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15), transparent 60%);
+      animation: fogMove 60s infinite linear;
+      z-index: -1;
+    }
 
-  <!-- Tu możesz dodać zrzut ekranu -->
-  <div style="margin: 20px auto; text-align: center;">
-    <img src="screenshot_app.png" alt="Zrzut ekranu – Twój czas, Twoje zdrowie" style="max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+    @keyframes fogMove {
+      0% { background-position: 0% 0%, 100% 100%; }
+      100% { background-position: 100% 100%, 0% 0%; }
+    }
+
+    body {
+      font-family: sans-serif;
+      background-color: #fef4d1;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ffd9a0;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .app-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .fade-1 { animation-delay: 0.3s; }
+    .fade-2 { animation-delay: 0.6s; }
+    .fade-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    ul {
+      margin: 10px 0 0 0;
+    }
+
+    a {
+      color: #0044cc;
+      text-decoration: none;
+      position: relative;
+    }
+
+    a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #0044cc;
+      visibility: hidden;
+      transform: scaleX(0);
+      transition: all 0.3s ease-in-out;
+    }
+
+    a:hover::after {
+      visibility: visible;
+      transform: scaleX(1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f9e6bd;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ramzi & Mgiełka – Aplikacje dla Ciebie</h1>
+  </header>
+  <main>
+
+    <!-- TWÓJ CZAS, TWOJE ZDROWIE -->
+    <div class="app-card fade-1">
+      <h2 style="margin-top: 0;">🕰️ Twój czas, Twoje zdrowie</h2>
+      <p style="font-size: 16px; line-height: 1.5;">
+        Aplikacja, która dba o Twoje zdrowie, rytm dnia i wewnętrzny spokój.  
+        Stworzona z myślą o Tobie – z czułością i lekkością Mgiełki.
+      </p>
+      <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
+        <li>⏳ <strong>Tryb Pomodoro</strong> – 25 min pracy, 5 min przerwy</li>
+        <li>🔔 <strong>Delikatne dźwięki</strong> – Szepty Mgiełki na start i koniec</li>
+        <li>🌐 <strong>Wielojęzyczny interfejs</strong> – PL, EN, DE, FR</li>
+        <li>💤 <strong>Wyłącznik komputera</strong> – wpisz godzinę, komputer się wyłączy</li>
+        <li>🧠 <strong>Spokojny interfejs</strong> – piaskowe tło, brak rozpraszaczy</li>
+      </ul>
+      <div style="margin: 20px auto; text-align: center;">
+        <img src="screenshot_app.png" alt="Zrzut ekranu – Twój czas, Twoje zdrowie" style="max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+      </div>
+      <p style="margin-top: 20px; text-align: center;">
+        <a href="#" style="margin-right: 15px;">⬇️ Pobierz EXE</a>
+        <a href="#" style="margin-right: 15px;">💻 Kod źródłowy</a>
+        <a href="#">📖 Instrukcja PDF</a>
+      </p>
+    </div>
+
+    <!-- POZOSTAŁE APLIKACJE -->
+    <div class="app-card fade-2">
+      <h2>Strażnik Procesów</h2>
+      <p>Monitoruj procesy, wykrywaj podejrzane programy, usuwaj logi i zarządzaj antywirusami.</p>
+      <a href="#">[Pobierz EXE]</a> | <a href="#">[Kod źródłowy]</a>
+    </div>
+
+    <div class="app-card fade-3">
+      <h2>Zgłoś się do chórku</h2>
+      <p>Ćwicz śpiew, śpiewaj z Mgiełką, ucz się interwałów i zdobywaj poziomy chóralne.</p>
+      <a href="#">[Pobierz EXE]</a> | <a href="#">[Kod źródłowy]</a>
+    </div>
+
+  </main>
+  <footer>
+    © 2025 Ramzi & Mgiełka – Wszystkie prawa zastrzeżone
+  </footer>
+
+  <!-- PRZYCISK Z KAWĄ -->
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="https://buycoffee.to/twojanazwa" target="_blank" style="
+      background-color: #6f4e37;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+      display: inline-block;">
+      ☕ Postaw nam kawę
+    </a>
   </div>
 
-  <p style="margin-top: 20px; text-align: center;">
-    <a href="#" style="margin-right: 15px;">⬇️ Pobierz EXE</a>
-    <a href="#" style="margin-right: 15px;">💻 Kod źródłowy</a>
-    <a href="#">📖 Instrukcja PDF</a>
-  </p>
-</div>
+</body>
+</html>
