@@ -32,15 +32,23 @@
     }
 
     header {
-      background-color: #ffd9a0;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #ccc;
-    }
+  background: linear-gradient(90deg, #444, #222);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #00000066;
+  animation: fadeIn 2s ease-out forwards;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 28px;
+header h1 {
+  font-size: 42px;
+  margin: 0;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #aaa, 0 0 20px #aaa; }
+  to   { text-shadow: 0 0 20px #fff, 0 0 30px #fef4d1; }
     }
 
     main {
