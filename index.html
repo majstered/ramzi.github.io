@@ -275,10 +275,17 @@
   <p><strong>Nie zachęcamy do łamania praw autorskich.</strong></p>
 
 
-<!-- ZIELONE PRZYCISKI WYŚRODKOWANE -->
-<div style="width: 100%; text-align: center; margin: 40px 0 60px;">
+<!-- ZIELONE PRZYCISKI W 100% WYŚRODKOWANE -->
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 60px;
+  gap: 16px;
+  flex-wrap: wrap;
+">
   <a href="link-do-instrukcji" style="
-    display: inline-flex;
+    display: flex;
     align-items: center;
     background-color: #28a745;
     color: white;
@@ -288,7 +295,6 @@
     border-radius: 8px;
     font-family: sans-serif;
     font-size: 16px;
-    margin: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   ">
@@ -296,7 +302,7 @@
   </a>
 
   <a href="link-do-pobrania" style="
-    display: inline-flex;
+    display: flex;
     align-items: center;
     background-color: #28a745;
     color: white;
@@ -306,13 +312,13 @@
     border-radius: 8px;
     font-family: sans-serif;
     font-size: 16px;
-    margin: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   ">
     <span style="margin-right: 8px;">⬇️</span> Pobierz aplikację
   </a>
 </div>
+
 
 
 
