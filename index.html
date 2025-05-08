@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="aplikacje.png">
+  <link rel="icon" type="image/png" href="aplikacje.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ramzi Studio – Aplikacje dla Ciebie</title>
   <style>
@@ -24,6 +24,22 @@
       100% { background-position: 100% 100%, 0% 0%; }
     }
 
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #aaa, 0 0 20px #aaa; }
+      to   { text-shadow: 0 0 20px #fff, 0 0 30px #fef4d1; }
+    }
+
     body {
       font-family: sans-serif;
       background-color: #fef4d1;
@@ -32,23 +48,18 @@
     }
 
     header {
-  background: linear-gradient(90deg, #444, #222);
-  color: white;
-  padding: 40px 20px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #00000066;
-  animation: fadeIn 2s ease-out forwards;
-}
+      background: linear-gradient(90deg, #444, #222);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      text-shadow: 2px 2px 4px #00000066;
+      animation: fadeIn 2s ease-out forwards;
+    }
 
-header h1 {
-  font-size: 42px;
-  margin: 0;
-animation: fadeIn 2s ease-out forwards, glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px #aaa, 0 0 20px #aaa; }
-  to   { text-shadow: 0 0 20px #fff, 0 0 30px #fef4d1; }
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeIn 2s ease-out forwards, glow 3s ease-in-out infinite alternate;
     }
 
     main {
