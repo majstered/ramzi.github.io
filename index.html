@@ -1,30 +1,121 @@
-<div class="app-card fade-3" style="background-color: #fdf0b5;">
-
-  <!-- Nagłówek nad tabelką -->
-  <div style="text-align: center; margin-bottom: 15px;">
-    <span style="
-      background-color: #eee59f;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informator – Siedliszcze</title>
+  <style>
+    body {
+      background-color: #fef4d1;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    header {
+      background-color: black;
+      color: white;
+      padding: 20px;
+      font-size: 28px;
+      animation: move 4s infinite alternate;
+      width: 100%;
+    }
+    @keyframes move {
+      0% { letter-spacing: 1px; }
+      100% { letter-spacing: 5px; }
+    }
+    .info-box {
+      background-color: #f3e7a2;
+      padding: 15px;
+      margin-top: 20px;
       font-size: 20px;
+      border-radius: 10px;
       display: inline-block;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    ">
-      📅 Tabela kwartalnych opłat
-    </span>
+    }
+    img {
+      margin-top: 20px;
+      max-width: 90%;
+      height: auto;
+      border: 2px solid #444;
+    }
+    .section {
+      margin: 30px 10px;
+      font-size: 20px;
+    }
+    .app-card {
+      background-color: #fdf0b5;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 50px auto;
+      max-width: 500px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    footer {
+      background-color: #2c2c2c;
+      color: #ffffff;
+      padding: 20px;
+      font-size: 16px;
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <header>🗑️ Info dla mieszkańców Siedliszcza</header>
+
+    <div class="info-box">
+      📱 Mobilna przypominajka o odbiorze odpadów i terminach opłat kwartalnych
+    </div>
+
+    <img src="Harmonogram.jpg" alt="Harmonogram odpadów 2025">
+
+    <div class="app-card">
+      <!-- NAPIS CENTRALNIE NAD TABELKĄ -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <span style="
+          background-color: #eee59f;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: bold;
+          font-size: 20px;
+          display: inline-block;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        ">
+          🗕️ Tabela kwartalnych opłat
+        </span>
+      </div>
+
+      <!-- TABELKA OPŁAT -->
+      <ul style="text-align: left; font-size: 18px; line-height: 1.6;">
+        <li>⭐ do 15 marca – I kwartał (podatek + odpady)</li>
+        <li>💧 do 15 kwietnia – I kwartał (woda + ścieki)</li>
+        <li>⭐ do 15 maja – II kwartał (podatek + odpady)</li>
+        <li>💧 do 15 lipca – II kwartał (woda + ścieki)</li>
+        <li>⭐ do 15 września – III kwartał (podatek + odpady)</li>
+        <li>💧 do 15 października – III kwartał (woda + ścieki)</li>
+        <li>⭐ do 15 listopada – IV kwartał (podatek + odpady)</li>
+        <li>💧 do 20 grudnia – IV kwartał (woda + ścieki)</li>
+      </ul>
+    </div>
+
+    <p style="font-size: 18px; margin-top: 30px; max-width: 600px;">
+      🗕️ Zeskanuj kod QR lub przekaż go sąsiadowi – niech też pamięta! 🗕️<br>
+      📌 Wydrukuj kod, przypnij na lodówkę, pojemniki od śmieci lub drzwi garażu...<br>
+      🧑‍🔧 Miej to zawsze pod ręką.
+    </p>
+
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://majstered.github.io/odpady.github.io/" alt="Kod QR do strony">
+
+    <footer>
+      🌫️ info.odpady 🌫️
+    </footer>
   </div>
-
-  <!-- Lista opłat -->
-  <ul style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 18px; line-height: 1.6;">
-    <li>⭐ do 15 marca – I kwartał (podatek + odpady)</li>
-    <li>💧 do 15 kwietnia – I kwartał (woda + ścieki)</li>
-    <li>⭐ do 15 maja – II kwartał (podatek + odpady)</li>
-    <li>💧 do 15 lipca – II kwartał (woda + ścieki)</li>
-    <li>⭐ do 15 września – III kwartał (podatek + odpady)</li>
-    <li>💧 do 15 października – III kwartał (woda + ścieki)</li>
-    <li>⭐ do 15 listopada – IV kwartał (podatek + odpady)</li>
-    <li>💧 do 20 grudnia – IV kwartał (woda + ścieki)</li>
-  </ul>
-
-</div>
+</body>
+</html>
