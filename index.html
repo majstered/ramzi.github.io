@@ -51,9 +51,20 @@
       background-color: #fdf0b5;
       border-radius: 12px;
       padding: 30px;
-      margin: 50px auto;
+      margin: 20px auto 50px auto;
       max-width: 500px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    .section-header {
+      background-color: #eee59f;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 20px;
+      display: inline-block;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 40px;
+      margin-bottom: 10px;
     }
     footer {
       background-color: #2c2c2c;
@@ -76,23 +87,12 @@
 
     <img src="Harmonogram.jpg" alt="Harmonogram odpadów 2025">
 
-    <div class="app-card">
-      <!-- NAPIS CENTRALNIE NAD TABELKĄ -->
-      <div style="text-align: center; margin-bottom: 15px;">
-        <span style="
-          background-color: #eee59f;
-          padding: 10px 20px;
-          border-radius: 10px;
-          font-weight: bold;
-          font-size: 20px;
-          display: inline-block;
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        ">
-          🗕️ Tabela kwartalnych opłat
-        </span>
-      </div>
+    <!-- NAGŁÓWEK NAD TABELKĄ -->
+    <div class="section-header">
+      🗕️ Tabela kwartalnych opłat
+    </div>
 
-      <!-- TABELKA OPŁAT -->
+    <div class="app-card">
       <ul style="text-align: left; font-size: 18px; line-height: 1.6;">
         <li>⭐ do 15 marca – I kwartał (podatek + odpady)</li>
         <li>💧 do 15 kwietnia – I kwartał (woda + ścieki)</li>
