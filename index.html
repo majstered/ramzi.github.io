@@ -1,289 +1,751 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="aplikacje.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ramzi Studio – Aplikacje dla Ciebie</title>
-  <style>
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%),
-                  radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15), transparent 60%);
-      animation: fogMove 60s infinite linear;
-      z-index: -1;
-    }
-    @keyframes fogMove {
-      0% { background-position: 0% 0%, 100% 100%; }
-      100% { background-position: 100% 100%, 0% 0%; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #aaa, 0 0 20px #aaa; }
-      to   { text-shadow: 0 0 20px #fff, 0 0 30px #fef4d1; }
-    }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    body {
-      font-family: sans-serif;
-      background-color: #fff3ce;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: linear-gradient(90deg, #444, #222);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      text-shadow: 2px 2px 4px #00000066;
-      animation: fadeIn 2s ease-out forwards;
-    }
-    header h1 {
-      font-size: 42px;
-      margin: 0;
-      animation: fadeIn 2s ease-out forwards, glow 3s ease-in-out infinite alternate;
-    }
-    main {
-      padding: 20px;
-    }
-    .app-card {
-      background-color: #fef4d1;
-      border-radius: 12px;
-      padding: 30px;
-      margin: 50px auto;
-      max-width: 960px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      animation: fadeInUp 1s ease-out forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .fade-1 { animation-delay: 0.3s; }
-    .fade-2 { animation-delay: 0.6s; }
-    .fade-3 { animation-delay: 0.9s; }
-    ul {
-      margin: 10px 0 0 0;
-    }
-    a {
-      color: #0044cc;
-      text-decoration: none;
-      position: relative;
-    }
-    a::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: #0044cc;
-      visibility: hidden;
-      transform: scaleX(0);
-      transition: all 0.3s ease-in-out;
-    }
-    a:hover::after {
-      visibility: visible;
-      transform: scaleX(1);
-    }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f9e6bd;
-      font-size: 14px;
-    }
-    .btn {
-      display: inline-block;
-      background-color: #28a745;
-      color: white;
-      font-weight: bold;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-family: sans-serif;
-      font-size: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      margin-right: 16px;
-    }
-    /* Nowa klasa brązowa */
-    .btn-brown {
-      display: inline-block;
-      background-color: #6f4e37;
-      color: white;
-      font-weight: bold;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-family: sans-serif;
-      font-size: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      /* margin-right: 16px; <-- USUNIĘTO */
-      transition: transform 0.2s ease;
-    }
-    .btn-brown:hover {
-      background-color: #543924;
-      transform: scale(1.05);
-    }
-    /* FLEXBOXY na przyciski przy aplikacjach */
-    .app-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Gra Słówek</title>
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+
+<style>
+html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:system-ui,sans-serif;
+background:radial-gradient(circle at top,#fff6d8,#f1deb0)}
+
+#menu{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:30px}
+.card{background:#fffaf0;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15);text-align:center;font-weight:900;max-width:320px;width:90%}
+h1{margin:0 0 20px;font-size:28px}
+.btnGrid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
+.btnBig{padding:18px;border-radius:16px;border:none;background:#2563eb;color:#fff;font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 6px 15px rgba(37,99,235,.3)}
+.btnBig:active{transform:translateY(2px);box-shadow:0 3px 8px rgba(37,99,235,.3)}
+
+#app{display:none;flex-direction:column;height:100%}
+header{padding:8px;text-align:center}
+#words{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.word{padding:6px 12px;border-radius:999px;border:2px solid #e7d6a8;background:#fffaf0;font-weight:900;font-size:16px}
+.word.off{opacity:.35;text-decoration:line-through}
+.word.on{background:#eef6ff;border-color:#b9d6ff}
+.word.found{background:rgba(34,197,94,.3);border-color:#22c55e}
+
+#board{flex:1;display:grid;gap:8px;padding:12px;touch-action:none;box-sizing:border-box}
+.cell{background:#fffaf0;border-radius:12px;display:flex;align-items:center;justify-content:center;
+font-size:24px;font-weight:900;user-select:none}
+.cell.sel{background:#c7e0ff}
+.cell.hit{background:rgba(34,197,94,.45)}
+
+footer{display:flex;justify-content:space-between;align-items:center;padding:10px}
+#timer{width:64px;height:64px;border-radius:50%;
+background:conic-gradient(#2563eb var(--p),rgba(0,0,0,.15) 0);
+display:flex;align-items:center;justify-content:center}
+#timer span{background:#fffaf0;width:46px;height:46px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px}
+.btn{padding:10px 14px;border-radius:12px;border:none;background:#2563eb;color:#fff;font-weight:900;cursor:pointer}
+.iconBtn{
+  width:46px;height:46px;border-radius:12px;border:none;
+  background:#2563eb;color:#fff;font-weight:900;font-size:20px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 15px rgba(37,99,235,.3);
+}
+.iconBtn:active{transform:translateY(2px);box-shadow:0 3px 8px rgba(37,99,235,.3)}
+.iconBtn.off{background:#6b7280;box-shadow:0 6px 15px rgba(107,114,128,.25)}
+
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
+#modal{background:#fffaf0;padding:30px;border-radius:20px;text-align:center;font-weight:900;max-width:300px;width:90%}
+
+/* Kontener mobilny */
+:root{--app-w:390px;--app-h:780px}
+body{display:flex;align-items:center;justify-content:center;background:#d9cfae}
+#shell{width:100%;max-width:var(--app-w);height:100vh;max-height:var(--app-h);margin:auto;background:inherit;overflow:hidden;position:relative}
+
+/* STRONA WYNIKÓW */
+#resultsScreen {
+  display:none;
+  flex-direction:column;
+  height:100%;
+  padding:20px 20px;
+  box-sizing:border-box;
+  overflow-y:auto;
+  text-align:center;
+  background:#fffaf0;
+  border-radius:20px;
+  margin:10px;
+}
+#resultsScreen h1 {
+  font-size:28px;
+  margin:0 0 30px;
+}
+#resultsScreen h2 {
+  font-size:22px;
+  margin:30px 0 10px;
+  color:#2563eb;
+}
+#resultsScreen p {
+  font-size:18px;
+  margin:8px 0;
+  font-weight:900;
+}
+#backToMenu {
+  margin-top:30px;
+  width:100%;
+  padding:16px;
+  font-size:19px;
+}
+
+/* ===== NOWOCZESNE MENU (FINAL) ===== */
+.menuBtns{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.btnFlat{
+  width:100%;
+  padding:14px 18px;
+  border-radius:14px;
+  border:none;
+  background:#ffffffd9;
+  color:#1f2937;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
+}
+.btnFlat:hover{background:#ffffff;transform:translateY(-1px)}
+.btnFlat:active{transform:translateY(0);box-shadow:inset 0 0 0 1px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.05)}
+.btnFlat.small{font-size:15px;padding:12px 16px;font-weight:800}
+.btnFlat.danger{color:#b91c1c}
+
+.btnInstall{
+  margin-top:6px;
+  background:transparent;
+  border:none;
+  font-size:14px;
+  font-weight:900;
+  color:#2563eb;
+  cursor:pointer;
+  opacity:.85;
+}
+.btnInstall:hover{opacity:1;text-decoration:underline}
+.copyTip {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6b6b6b;
+  text-align: center;
+  line-height: 1.4;
+}
+
+</style>
 </head>
 <body>
-  <header>
-    <h1>Ramzi Studio – Aplikacje dla Ciebie</h1>
-  </header>
-  <main>
+<div id="shell">
 
-    <div class="app-card fade-1" style="background-color: #fdf0b5;">
-      <h2>🧠 Aplikacje tworzone z myślą o Tobie</h2>
-      <p>Jesteśmy małym zespołem – tworzymy aplikacje, które łączą technologię z troską.<br>
-         Nasze programy są proste, przyjazne i pomocne – projektowane z myślą o codziennych potrzebach użytkownika.</p>
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li>🔷 Mogą służyć do nauki, organizacji czasu czy ochrony komputera.</li>
-        <li>🔷 Działają lokalnie – bez reklam, bez zbędnych uprawnień, z szacunkiem dla Twojej prywatności.</li>
-        <li>🔷 Nie posiadają podpisu cyfrowego, dlatego mogą być na początku wykrywane przez niektóre programy antywirusowe.</li>
-      </ul>
-      <p>💬 Będzie nam bardzo miło, jeśli zechcesz wypróbować którąś z aplikacji i podzielić się swoją opinią lub uwagami.</p>
-    </div>
+  <!-- MENU GŁÓWNE -->
+  <div id="menu">
+    <div class="card">
+      <h1>🇵🇱 Gra Słówek</h1>
+      <p>Wybierz rozmiar planszy:</p>
+      
+      <div class="menuBtns">
+        <button class="btnFlat" data-size="5x6">Plansza 5 × 6</button>
+        <button class="btnFlat" data-size="6x7">Plansza 6 × 7</button>
 
-    <div class="app-card fade-2" style="background-color: #fdf0b5;"> 
-      <h2>🕰️ Twój czas, Twoje zdrowie</h2>
-      <p>To lekki, przenośny program działający w tle – bez potrzeby instalacji. Wzorowany na metodzie <strong>Pomodoro</strong>, pomaga odzyskać kontrolę nad czasem spędzanym przy komputerze. Monitoruje cykle pracy i przerw, wspierając w dbaniu o równowagę między skupieniem a odpoczynkiem.</p>
-      <ul>
-        <li>🌐 Wielojęzyczny interfejs – PL, EN, DE, FR</li>
-        <li>⏳ Tryb Pomodoro – 30/2 lub 45/5</li>
-        <li>💤 Wyłącznik komputera – wpisz godzinę</li>
-        <li>🧠 Spokojny interfejs – działa w tle</li>
-      </ul>
-      <div class="app-buttons">
-        <a href="https://drive.google.com/uc?export=download&id=1tUGEEMyGp89fHnuOswRiiA2xClfyboDE" target="_blank" class="btn-brown">⬇️ Pobierz aplikację</a>
-        <a href="https://majstered.github.io/twoj-czas-twoje-zdrowie/" class="btn-brown" target="_blank">ℹ️ Opis aplikacji</a>
-      </div>
-    </div>
+        <button class="btnFlat small" id="showResults">📊 Wyniki gry</button>
 
-    <div class="app-card fade-3" style="background-color: #fdf0b5;">
-      <h2>🛡️ Strażnik Procesów</h2>
-      <h2>🛠️ (Aktualna wersja testowa dostępna do pobrania)</h2>
-
-      <p>Narzędzie do monitorowania, wykrywania i analizowania podejrzanych procesów w systemie Windows. Pozwala bezpiecznie zarządzać aplikacjami, usuwać logi i chronić system w czasie rzeczywistym.</p>
-      <ul>
-        <li>🔍 Lista procesów – filtrowanie, zakończenie</li>
-        <li>🦠 Wykrywanie antywirusów i narzędzi</li>
-        <li>📤 Przycisk „Zaufaj” – usuwanie podejrzanych</li>
-        <li>🧹 Usuwanie logów i aktualizacji</li>
-        <li>🕵️ Monitoring systemu – powiadomienia</li>
-      </ul>
-      <div class="app-buttons">
-        <a href="https://drive.google.com/uc?export=download&id=1KX_18oI72qjyJYMLtjIz3NnX3CPHKBm1" target="_blank" class="btn-brown">⬇️ Pobierz aplikację</a>
-        <a href="https://majstered.github.io/strazopis.github.io/" class="btn-brown" target="_blank">ℹ️ Opis aplikacji</a>
-      </div>
-    </div>
-
-    <div class="app-card fade-3" style="background-color: #fdf0b5;">
-      <h2>🎵 mp3_turbo_1.0 – Twoja osobista biblioteka dźwięku
-        <span style="background-color: #ff6868; color: white; padding: 2px 6px; font-size: 14px; border-radius: 4px; margin-left: 10px;">Nowość!</span>
-      </h2>
-      <p>
-        mp3_turbo_1.0 to prosty, przejrzysty program,<br>
-        który pozwala w kilka kliknięć pobierać i odtwarzać utwory MP3 z legalnych źródeł.<br>
-        Dzięki intuicyjnemu interfejsowi możesz:
-      </p>
-      <ul style="margin-left: 0; padding-left: 0;">
-        <li>✅ Pobierać ulubione kawałki z różnych legalnych źródeł w sieci</li>
-        <li>✅ Tworzyć i zarządzać własnymi playlistami – aż 4 osobne listy dla różnych nastrojów lub okazji!</li>
-        <li>✅ Zarządzać głośnością, pauzować i zapętlać utwory w prosty sposób.</li>
-        <li>✅ Brak logowania i śledzenia</li>
-        <li>✅ Przycisk otwierający folder z pobraną muzyką.</li>
-      </ul>
-
-      <h3>🔐 Legalność:</h3>
-      <p>Aplikacja działa zgodnie z prawem dozwolonego użytku osobistego w Polsce,<br>
-      a użytkownik otrzymuje wyraźne informacje prawne.</p>
-      <div class="app-buttons">
-        <a href="https://drive.google.com/uc?export=download&id=1T0UCIwxEslcYZ40HKmPXe3DPb9wYWIwh" target="_blank" class="btn-brown">⬇️ Pobierz aplikację</a>
-        <a href="https://majstered.github.io/yanosik-turbo-2028/" class="btn-brown" target="_blank">ℹ️ Opis aplikacji</a>
-      </div>
-    </div>
-      <div class="app-card fade-3" style="text-align: center; background-color: #fdf0b5;">
-        <img src="aplikacje.png" alt="Ikona Aplikacje" style="width: 80px; height: 80px; margin: 10px;">
-        <img src="favicon.png" alt="Ikona Twój czas, twoje zdrowie" style="width: 80px; height: 80px; margin: 10px;">
-        <img src="procesy.png" alt="Ikona Strażnik Procesów" style="width: 80px; height: 80px; margin: 10px;">
-        <img src="turbo_converted.png" alt="Ikona Yanosik Turbo" style="width: 80px; height: 80px; margin: 10px;">
-        <img src="aplikacje.png" alt="Ikona Aplikacje" style="width: 80px; height: 80px; margin: 10px;">
-    </div>
-</main>
-  <div style="text-align: center; margin-bottom: 25px; padding: 14px; border-radius: 12px; background-color: #fdf0b5; box-shadow: 0 2px 6px rgba(0,0,0,0.05); font-size: 18px; font-weight: bold; color: #333;">
-  💛 Spodobała Ci się nasza praca? 💛 😊 przekaż link dalej  💛 ☕ Kliknij, postaw kawę 💛 📖 albo wpisz się do księgi – to dla nas wielka radość! ☕📖💛
-  </div>
+        <button class="btnFlat small danger" id="exitBtn">🚪 Wyjście</button>
+        <button id="copyLinkBtn" class="btnFlat small">📋 Skopiuj adres gry</button>
+        <div class="copyTip">
+          ⚠️ Tip: najlepiej skopiować link i otworzyć w <b>Chrome</b> – wtedy można dodać grę na pulpit i śledzić swoje rekordy.
+        </div>
   
-  <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px; margin-bottom: 60px; flex-wrap: wrap;">
-<a href="#" onclick="copyLink()" style="
-  background-color: #28a745;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-">🟢 Skopiuj link do strony</a>
+  
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GRA -->
+  <div id="app">
+    <header><div id="words"></div></header>
+    <div id="board"></div>
+    <footer>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="timer" style="--p:100%"><span id="time">60</span></div>
+
+        <!-- TYKANIE ZEGARA -->
+        <button class="iconBtn" id="toggleTick" title="Tykanie zegara">🎵</button>
+
+        <!-- WSZYSTKIE DŹWIĘKI -->
+        <button class="iconBtn" id="toggleSound" title="Dźwięki">🎶</button>
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="goFullscreen()">⛶</button>
+        <button class="btn" id="back">MENU</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- WYGRANA/PRZEGRANA -->
+  <div id="overlay">
+    <div id="modal">
+      <div id="msg"></div><br><br>
+      <button class="btn" id="again" style="width:100%;padding:16px;font-size:19px">ZAGRAJ PONOWNIE</button>
+    </div>
+  </div>
+
+  <!-- STRONA WYNIKÓW -->
+  <div id="resultsScreen">
+    <h1>Wyniki Gry</h1>
+    <div id="globalStats"></div>
+    <div id="lastSessionStats"></div>
+    <div id="todayStats"></div>
+    <button class="btn" id="backToMenu">POWRÓT DO MENU</button>
+  </div>
+
+  <!-- NOWE: EKRAN WYLOGOWANIA -->
+  <div id="logoutScreen" style="
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+    padding:30px;
+    text-align:center;
+    background:#fffaf0;
+    border-radius:20px;
+    margin:10px;
+    font-weight:900;
+  ">
+    <h1 style="font-size:26px;margin:0 0 20px;">👋 Zostałeś wylogowany</h1>
+
+    <p style="font-size:18px;line-height:1.5;margin:0;">
+      Zostałeś wylogowany z gry.<br><br>
+      Możesz teraz <strong>bezpiecznie zamknąć przeglądarkę</strong><br>
+      i powrócić kiedy tylko chcesz.
+    </p>
+
+    <button class="btnBig" style="margin-top:30px;" id="backFromLogout">
+      🔄 POWRÓT DO MENU
+    </button>
+  </div>
+
+</div>
 
 <script>
-  function copyLink() {
-    const link = "https://majstered.github.io/ramzi.github.io/#"; // <-- Wklej tu swój pełny adres, jeśli jest inny
-    navigator.clipboard.writeText(link).then(() => {
-      alert("📋 Skopiowano link do strony!");
+(() => {
+  const WORDS = [
+    "DOM","LAS","SEN","DÓŁ","BÓL","TOR","MUR","ŻAR","KĄT","ŁAN","EGO","LOS","CEL","MOC","RÓJ","TŁO","FON","KOD","RYM","MIT","SOK","LOT","RAP","ART","TYP","EKO","SYN","ŁAD","TON","WAT","GAS",
+    "WODA","KAWA","RYBA","LATO","ZIMA","OKNO","RĘKA","ŻABA","ŁÓDŹ","NOCĄ","MAKI","LASY","KOTY","DOMY","DUCH","MOCY","ŚLAD","KIER","ZNAM","IDEA","FALA","MOST","TŁUM","FORMA","ŚWIT","CIEŃ","NUTA",
+    "KWIAT","LIŚĆ","WIEŚ","GÓRA"
+  ].filter(w => w.length >= 3 && w.length <= 4);
+
+  const BASE_TIME = 60;
+  const ALPH = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ";
+  const DIRS = [{dr:0,dc:1},{dr:1,dc:0},{dr:1,dc:1},{dr:1,dc:-1},{dr:0,dc:-1},{dr:-1,dc:0},{dr:-1,dc:-1},{dr:-1,dc:1}];
+
+  const menu = document.getElementById("menu");
+  const app = document.getElementById("app");
+  const board = document.getElementById("board");
+  const wordsEl = document.getElementById("words");
+  const overlay = document.getElementById("overlay");
+  const msg = document.getElementById("msg");
+  const back = document.getElementById("back");
+  const again = document.getElementById("again");
+  const timeEl = document.getElementById("time");
+  const timerEl = document.getElementById("timer");
+  const showResultsBtn = document.getElementById("showResults");
+  const resultsScreen = document.getElementById("resultsScreen");
+  const backToMenuBtn = document.getElementById("backToMenu");
+  const globalStatsEl = document.getElementById("globalStats");
+  const lastSessionStatsEl = document.getElementById("lastSessionStats");
+  const todayStatsEl = document.getElementById("todayStats");
+
+  // NOWE
+  const exitBtn = document.getElementById("exitBtn");
+  const logoutScreen = document.getElementById("logoutScreen");
+  const backFromLogout = document.getElementById("backFromLogout");
+
+  const toggleTickBtn = document.getElementById("toggleTick");
+  const toggleSoundBtn = document.getElementById("toggleSound");
+
+  let GAME = { rows: 6, cols: 5 };
+  let words4 = [];
+  let active = new Set();
+  let found = new Set();
+  let grid = [];
+  let cells = [];
+  let timer = null;
+  let timeLeft = BASE_TIME;
+  let dragging = false;
+  let startCell = null;
+  let path = [];
+
+  let activeCount = Math.max(1, Math.min(4, Number(localStorage.getItem("ACTIVE_COUNT")) || 2));
+
+
+  // ===== DŹWIĘKI =====
+  const clickSound = new Audio('sounds/click.mp3');
+  const tickSound = new Audio('sounds/tick.mp3');
+  const recordsMusic = new Audio('sounds/records_loop.mp3');
+  const fanfareSound = new Audio('sounds/fanfare.mp3');
+  const loseSound = new Audio('sounds/lose.mp3');
+
+  clickSound.volume = 0.6;
+  tickSound.volume = 0.6;
+  recordsMusic.volume = 0.9;
+  recordsMusic.loop = true;
+  fanfareSound.volume = 0.4;
+  loseSound.volume = 0.8;
+
+// ===== USTAWIENIA DŹWIĘKU (zapamiętywane) =====
+let soundOn = (localStorage.getItem("SOUND_ON") ?? "1") !== "0"; // 🎶
+let tickOn  = (localStorage.getItem("TICK_ON")  ?? "1") !== "0"; // 🎵
+
+function syncAudioFlags() {
+  const muteAll = !soundOn;
+  // globalny mute
+  [clickSound, tickSound, recordsMusic, fanfareSound, loseSound].forEach(a => { a.muted = muteAll; });
+
+  // tykanie zależne od globalnego + tickOn
+  tickSound.muted = muteAll || !tickOn;
+
+  // jeśli globalnie wyciszone, zatrzymaj muzykę w tle wyników
+  if (muteAll) {
+    try { recordsMusic.pause(); recordsMusic.currentTime = 0; } catch (e) {}
+  }
+}
+
+function renderAudioButtons() {
+  // tick
+  toggleTickBtn.textContent = tickOn ? "🎵" : "🚫🎵";
+  toggleTickBtn.classList.toggle("off", !tickOn || !soundOn);
+
+  // global
+  toggleSoundBtn.textContent = soundOn ? "🎶" : "🚫🎶";
+  toggleSoundBtn.classList.toggle("off", !soundOn);
+}
+
+function safePlay(audio, { reset=true } = {}) {
+  try {
+    if (!audio || audio.muted) return;
+    if (reset) audio.currentTime = 0;
+    audio.play().catch(() => {});
+  } catch (e) {}
+}
+
+// init stanu audio + ikon
+syncAudioFlags();
+renderAudioButtons();
+
+toggleSoundBtn.onclick = () => {
+  soundOn = !soundOn;
+  localStorage.setItem("SOUND_ON", soundOn ? "1" : "0");
+  syncAudioFlags();
+  renderAudioButtons();
+};
+
+toggleTickBtn.onclick = () => {
+  tickOn = !tickOn;
+  localStorage.setItem("TICK_ON", tickOn ? "1" : "0");
+  syncAudioFlags();
+  renderAudioButtons();
+};
+
+const copyLinkBtn = document.getElementById("copyLinkBtn");
+
+if (copyLinkBtn) {
+  copyLinkBtn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      copyLinkBtn.textContent = "✅ Skopiowano adres";
+      setTimeout(() => {
+        copyLinkBtn.textContent = "📋 Skopiuj adres gry";
+      }, 1500);
+    } catch (e) {
+      alert("Nie udało się skopiować adresu");
+    }
+  };
+}
+
+  // Odblokowanie dźwięków na pierwszy click
+document.addEventListener('click', () => {
+  // odblokuj dźwięk (mobilki) – nawet jeśli wyciszone, to i tak nic nie zagra (muted)
+  [tickSound, recordsMusic, fanfareSound, loseSound].forEach(a => {
+    a.play().then(() => {
+      a.pause();
+      a.currentTime = 0;
+    }).catch(() => {});
+  });
+}, { once: true });
+
+  // Dźwięk click na buttonach
+  document.addEventListener('click', (e) => {
+    if (!soundOn) return;
+    if (e.target.closest('.btn, .btnBig, .iconBtn, .btnFlat, .btnInstall')) {
+      safePlay(clickSound);
+    }
+  });
+
+  // Statystyki
+  if (!localStorage.getItem("gameStats")) {
+    localStorage.setItem("gameStats", JSON.stringify({
+      startDate: new Date().toISOString().split('T')[0],
+      stats: {}
+    }));
+  }
+
+  function updateStats(isWin) {
+    const today = new Date().toISOString().split('T')[0];
+    const stats = JSON.parse(localStorage.getItem("gameStats"));
+    if (!stats.stats[today]) stats.stats[today] = { wins: 0, losses: 0 };
+    if (isWin) stats.stats[today].wins++;
+    else stats.stats[today].losses++;
+    localStorage.setItem("gameStats", JSON.stringify(stats));
+  }
+
+  function showResults() {
+    menu.style.display = "none";
+    logoutScreen.style.display = "none";
+    resultsScreen.style.display = "flex";
+    if (soundOn) {
+      recordsMusic.currentTime = 0;
+      safePlay(recordsMusic, { reset: false });
+    }
+
+    const stats = JSON.parse(localStorage.getItem("gameStats"));
+    const startDate = stats.startDate;
+    const dailyStats = stats.stats;
+
+    let globalWins = 0, globalLosses = 0;
+    for (const day in dailyStats) {
+      globalWins += dailyStats[day].wins || 0;
+      globalLosses += dailyStats[day].losses || 0;
+    }
+    globalStatsEl.innerHTML = `<h2>Globalnie (od ${startDate})</h2><p>Wygrane rundy: <strong>${globalWins}</strong></p><p>Przegrane rundy: <strong>${globalLosses}</strong></p>`;
+
+    const today = new Date().toISOString().split('T')[0];
+    const todayWins = dailyStats[today]?.wins || 0;
+    const todayLosses = dailyStats[today]?.losses || 0;
+    todayStatsEl.innerHTML = `<h2>Dziś (${today})</h2><p>Wygrane: <strong>${todayWins}</strong></p><p>Przegrane: <strong>${todayLosses}</strong></p>`;
+
+    const dates = Object.keys(dailyStats).sort().reverse();
+    let lastSessionDate = null;
+    for (const d of dates) {
+      if (d !== today && (dailyStats[d].wins > 0 || dailyStats[d].losses > 0)) {
+        lastSessionDate = d;
+        break;
+      }
+    }
+
+    if (lastSessionDate) {
+      const lastWins = dailyStats[lastSessionDate].wins || 0;
+      const lastLosses = dailyStats[lastSessionDate].losses || 0;
+      lastSessionStatsEl.innerHTML = `<h2>Ostatnia sesja (${lastSessionDate})</h2><p>Wygrane: <strong>${lastWins}</strong></p><p>Przegrane: <strong>${lastLosses}</strong></p>`;
+    } else {
+      lastSessionStatsEl.innerHTML = `<h2>Ostatnia sesja</h2><p>Brak wcześniejszych sesji</p>`;
+    }
+  }
+
+  document.querySelectorAll("[data-size]").forEach(btn => {
+    btn.onclick = () => {
+      const [cols, rows] = btn.dataset.size.split("x").map(Number);
+      GAME = { rows, cols };
+      updateBoardCSS();
+      startGame();
+    };
+  });
+
+  function updateBoardCSS() {
+    board.style.gridTemplateColumns = `repeat(${GAME.cols}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${GAME.rows}, 1fr)`;
+  }
+
+  function pick4() {
+    const pool = WORDS.slice();
+    const out = [];
+    while (out.length < 4 && pool.length) out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+    while (out.length < 4) out.push("DOM");
+    return out;
+  }
+
+  function applyActiveFromCount() {
+    active = new Set(words4.slice(0, activeCount));
+  }
+
+  function renderChips() {
+    wordsEl.innerHTML = "";
+    words4.forEach(w => {
+      const s = document.createElement("span");
+      s.className = "word off";
+      s.textContent = w;
+      s.onclick = () => {
+        if (active.has(w)) {
+          if (active.size <= 1) return;
+          active.delete(w);
+        } else active.add(w);
+        activeCount = active.size;
+        localStorage.setItem("ACTIVE_COUNT", activeCount);
+        found.clear();
+        buildRound();
+      };
+      wordsEl.appendChild(s);
+    });
+    updateChips();
+  }
+
+  function updateChips() {
+    [...wordsEl.children].forEach(chip => {
+      const w = chip.textContent;
+      chip.className = "word " + (found.has(w) ? "found" : active.has(w) ? "on" : "off");
     });
   }
+
+  function buildGrid() {
+    const g = Array.from({length: GAME.rows}, () => Array(GAME.cols).fill(null));
+    const list = [...active];
+    for (let i = list.length-1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
+    for (const w of list) {
+      for (let t = 0; t < 500; t++) {
+        const d = DIRS[Math.floor(Math.random() * DIRS.length)];
+        const r0 = Math.floor(Math.random() * GAME.rows);
+        const c0 = Math.floor(Math.random() * GAME.cols);
+        const rE = r0 + d.dr * (w.length - 1);
+        const cE = c0 + d.dc * (w.length - 1);
+        if (rE < 0 || rE >= GAME.rows || cE < 0 || cE >= GAME.cols) continue;
+        let ok = true;
+        for (let i = 0; i < w.length; i++) {
+          if (g[r0 + d.dr * i][c0 + d.dc * i] !== null) { ok = false; break; }
+        }
+        if (ok) {
+          for (let i = 0; i < w.length; i++) {
+            g[r0 + d.dr * i][c0 + d.dc * i] = w[i];
+          }
+          break;
+        }
+      }
+    }
+    for (let r = 0; r < GAME.rows; r++) {
+      for (let c = 0; c < GAME.cols; c++) {
+        if (g[r][c] === null) g[r][c] = ALPH[Math.floor(Math.random() * ALPH.length)];
+      }
+    }
+    return g;
+  }
+
+  function renderBoard() {
+    board.innerHTML = "";
+    cells = [];
+    for (let r = 0; r < GAME.rows; r++) {
+      for (let c = 0; c < GAME.cols; c++) {
+        const el = document.createElement("div");
+        el.className = "cell";
+        el.textContent = grid[r][c];
+        el.dataset.r = r; el.dataset.c = c;
+        board.appendChild(el);
+        cells.push(el);
+      }
+    }
+  }
+
+  function idx(p) { return p.r * GAME.cols + p.c; }
+  function clearSel() { cells.forEach(el => el.classList.remove("sel")); }
+  function paint(p) { clearSel(); p.forEach(x => cells[idx(x)].classList.add("sel")); }
+
+  function line(a, b) {
+    const dr = b.r - a.r, dc = b.c - a.c;
+    const sdr = dr === 0 ? 0 : (dr > 0 ? 1 : -1);
+    const sdc = dc === 0 ? 0 : (dc > 0 ? 1 : -1);
+    const adr = Math.abs(dr), adc = Math.abs(dc);
+    if (!((adr === 0 && adc > 0) || (adc === 0 && adr > 0) || (adr === adc && adr > 0))) return [];
+    const n = Math.max(adr, adc);
+    const out = [];
+    let rr = a.r, cc = a.c;
+    for (let i = 0; i <= n; i++) {
+      out.push({r: rr, c: cc});
+      rr += sdr; cc += sdc;
+    }
+    return out;
+  }
+
+  board.addEventListener("pointerdown", e => {
+    const el = e.target.closest(".cell");
+    if (!el) return;
+    dragging = true;
+    board.setPointerCapture(e.pointerId);
+    startCell = {r: +el.dataset.r, c: +el.dataset.c};
+    path = [startCell];
+    paint(path);
+  });
+
+  board.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest(".cell");
+    if (!el) return;
+    const cur = {r: +el.dataset.r, c: +el.dataset.c};
+    path = line(startCell, cur);
+    paint(path);
+  });
+
+  board.addEventListener("pointerup", () => {
+    if (!dragging) return;
+    dragging = false;
+    clearSel();
+    if (path.length >= 3) {
+      const txt = path.map(p => grid[p.r][p.c]).join("");
+      const rev = txt.split("").reverse().join("");
+      for (const w of active) {
+        if (found.has(w)) continue;
+        if (txt === w || rev === w) {
+          found.add(w);
+          updateChips();
+          path.forEach(p => cells[idx(p)].classList.add("hit"));
+          if (found.size === active.size) win();
+          break;
+        }
+      }
+    }
+    path = [];
+  });
+
+  let lastSecond = -1;
+
+  function startTimer() {
+    clearInterval(timer);
+    timeLeft = BASE_TIME;
+    timeEl.textContent = timeLeft;
+    timerEl.style.setProperty("--p", "100%");
+    lastSecond = -1;
+    timer = setInterval(() => {
+      timeLeft--;
+      timeEl.textContent = timeLeft;
+      timerEl.style.setProperty("--p", (timeLeft / BASE_TIME * 100) + "%");
+
+      const sec = timeLeft;
+      if (sec !== lastSecond && sec > 0) {
+        lastSecond = sec;
+        if (soundOn && tickOn) safePlay(tickSound);
+      }
+
+      if (timeLeft <= 0) lose();
+    }, 1000);
+  }
+
+  function win() {
+    updateStats(true);
+    if (soundOn) safePlay(fanfareSound);
+    end("🎉 Gratulacje!<br>Znaleziono wszystkie słowa!");
+  }
+
+  function lose() {
+    updateStats(false);
+    if (soundOn) safePlay(loseSound);
+    end("⏱️ Czas się skończył!<br>Spróbuj jeszcze raz.");
+  }
+
+  function end(text) {
+    clearInterval(timer);
+    msg.innerHTML = text;
+    overlay.style.display = "flex";
+  }
+
+  function buildRound() {
+    overlay.style.display = "none";
+    found.clear();
+    grid = buildGrid();
+    renderBoard();
+    updateChips();
+    startTimer();
+  }
+
+  function startGame() {
+    // start gry zawsze wyłącza inne ekrany
+    resultsScreen.style.display = "none";
+    logoutScreen.style.display = "none";
+    recordsMusic.pause();
+    recordsMusic.currentTime = 0;
+
+    menu.style.display = "none";
+    app.style.display = "flex";
+    words4 = pick4();
+    applyActiveFromCount();
+    renderChips();
+    buildRound();
+  }
+
+  back.onclick = () => {
+    clearInterval(timer);
+    app.style.display = "none";
+    menu.style.display = "flex";
+  };
+
+  again.onclick = () => {
+    words4 = pick4();
+    applyActiveFromCount();
+    renderChips();
+    buildRound();
+  };
+
+  showResultsBtn.onclick = showResults;
+
+  backToMenuBtn.onclick = () => {
+    recordsMusic.pause();
+    recordsMusic.currentTime = 0;
+    resultsScreen.style.display = "none";
+    menu.style.display = "flex";
+  };
+
+    // NOWE: EXIT -> ekran wylogowania
+  exitBtn.onclick = async () => {
+
+    // 1️⃣ ZAWSZE WYJDŹ Z FULLSCREEN
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    }
+
+    // 2️⃣ ZATRZYMAJ WSZYSTKO
+    clearInterval(timer);
+    recordsMusic.pause();
+    recordsMusic.currentTime = 0;
+
+    // 3️⃣ SCHOWAJ EKRANY
+    menu.style.display = "none";
+    app.style.display = "none";
+    overlay.style.display = "none";
+    resultsScreen.style.display = "none";
+
+    // 4️⃣ POKAŻ WYLOGOWANIE
+    logoutScreen.style.display = "flex";
+  };
+
+
+  backFromLogout.onclick = () => {
+    logoutScreen.style.display = "none";
+    menu.style.display = "flex";
+  };
+
+  
+  // ===== PWA: Service Worker (offline + szybsze ładowanie) =====
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+    });
+  }
+menu.style.display = "flex";
+  app.style.display = "none";
+})();
 </script>
 
-  <a href="https://buycoffee.to/ramzi-studio" target="_blank" style="
-    background-color: #6f4e37;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: transform 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-  ">☕ Postaw nam kawę</a>
+<script>
+function goFullscreen() {
+  const el = document.documentElement;
 
-  <a href="https://majstered.github.io/ksiega-ramzi.github.io" target="_blank" style="
-    background-color: #0077cc;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: transform 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-  ">📖 Wpisz się do księgi</a>
-</div>
-  <footer>
-    © 2025 Ramzi Studio – Wszystkie prawa zastrzeżone
-  </footer>
+  if (!document.fullscreenElement) {
+    el.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+</script>
+
+
 </body>
 </html>
